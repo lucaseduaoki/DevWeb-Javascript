@@ -33,15 +33,26 @@
             flex-wrap: nowrap;
         }
 
+        .Textonome {
+            margin-top: 15px;
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: #f0f8ff;
+            width: 250px; /* Ajuste o tamanho conforme necessário */
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
     
     <h2>Gerador de Nomes de Aventura</h2>
     <button>Gerar nome</button>
-    <p>Exemplo:</p>
+    <div class="Textonome">
+        <p>Exemplo:</p>
+    </div>
    
-
     <script>
         const titles = ["Sr.", "Mister", "Dom", "Lord", "Lady", "Capitão", "Dama"];
         const names = ["Arthur", "Gwendolyn", "Merlin", "Lancelot", "Morgana", "Ragnar", "Éowyn"];
