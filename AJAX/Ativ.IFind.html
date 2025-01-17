@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    
+
+    body{
+        font-family: Arial, sans-serif;
+        background-color:#333333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 800px;
+        height: 750px;
+        background-color: black;
+        margin-top: 2%;
+        gap: 10px;
+        border-color: black; 
+        border-radius: 15px;
+        color: white;
+    }
+
+    h1{
+        color: #f4f4f9;
+        margin-bottom: 20px;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 40px;
+    }
+
+    input[type="text"]{
+        width: 200px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ffffff;
+        border-radius: 5px;
+        background-color: #333333;
+        color: white;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+
+
+
+<body>
+    <div class="container">
+        <h1>IFind Cinema </h1>
+            <input type="text" id="movieName" placeholder="Digite o nome do flme">
+
+        <button id="searchButton">Buscar </button>
+
+        <div>Lista de flmes buscados </div>
+
+        <div id="results"> </div>
+    </div>
+
+    <script>
+        function cineFind(movieName){
+            const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=2dbca7a779fef19d8dc0acc77384df5a&query=${movieName}&language=pt-BR`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.results.length > 0) {
+                        const movie = data.results[0];
+
+                        document.getElementById('results').innerHTML +=
+                        `
+                        <h2>${movie.title}</h2>
+                        <p>${movie.overview}</p>
+                        <img src="https://image.tmdb.org/t/p/w200${movie.poster_path}" alt="${movie.title}">
+                        `;
+                    } 
+                    else {
+                        document.getElementById('results').innerHTML = "<p>Nenhum filme encontrado.</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                });
+        }
+
+        let button = document.getElementById('searchButton')
+
+        button.addEventListener('click', ()=> {
+            const movieName = document.getElementById('movieName').value.trim();
+
+            if (movieName){
+                document.getElementById('results').innerHTML = '';
+                cineFind(movieName);
+            }
+            else{
+                alert("Digite o nome de um filme");
+            }
+        });
+
+
+    </script>
+</body>
+</html>
